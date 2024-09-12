@@ -1,11 +1,12 @@
 import { CodegenConfig } from '@graphql-codegen/cli';
+import { API_URL } from './src/constants/urls';
 
 const config: CodegenConfig = {
-  schema: 'https://api.escuelajs.co/graphql',
+  schema: API_URL,
   // this assumes that all your source files are in a top-level `src/` directory - you might need to adjust this to your file structure
-  documents: ['app/gql/documents/**/*.gql'],
+  documents: ['src/gql/documents/**/*.gql'],
   generates: {
-    './app/gql/__generated__/': {
+    '.src/gql/__generated__/': {
       preset: 'client',
       plugins: [],
       presetConfig: {
