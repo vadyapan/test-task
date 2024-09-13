@@ -7,13 +7,16 @@ import {
   AvatarFallback,
   AvatarImage,
 } from '@/src/components/ui/avatar';
+import { Header } from '../layouts/Header/Header';
 
 const GET_PROFILE = gql(
   'query GetProfile {\n  myProfile {\n    id\n    name\n    avatar\n  }\n}'
 );
 
 export default function MyInfoPage() {
-  const { loading, error, data } = useQuery(GET_PROFILE);
+  // const { loading, error, data } = useQuery(GET_PROFILE);
+
+  return <Header />; // потом убрать
 
   if (loading)
     return (
@@ -25,12 +28,18 @@ export default function MyInfoPage() {
   if (error) return <h1>error.message</h1>;
 
   return (
-    <div className='container flex flex-col items-center gap-8 pt-12 pb-24'>
-      <Avatar className='w-36 h-36'>
-        <AvatarImage src={data?.myProfile.avatar} alt={data?.myProfile.name} />
-        <AvatarFallback>IMG</AvatarFallback>
-      </Avatar>
-      <h1>{data?.myProfile.name}</h1>
-    </div>
+    <>
+      <Header />
+      <div className='container flex flex-col items-center gap-8 pt-12 pb-24'>
+        <Avatar className='w-36 h-36'>
+          <AvatarImage
+            src={data?.myProfile.avatar}
+            alt={data?.myProfile.name}
+          />
+          <AvatarFallback>IMG</AvatarFallback>
+        </Avatar>
+        <h1>{data?.myProfile.name}</h1>
+      </div>
+    </>
   );
 }

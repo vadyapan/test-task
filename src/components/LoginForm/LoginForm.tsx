@@ -20,7 +20,7 @@ const SING_IN = gql(
   'mutation SignIn($email: String!, $password: String!) {\n  login(email: $email, password: $password) {\n    access_token\n    refresh_token\n  }\n}'
 );
 
-export function LoginForm() {
+export const LoginForm: React.FC = () => {
   const [signIn] = useMutation(SING_IN);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -107,4 +107,4 @@ export function LoginForm() {
       </CardFooter>
     </Card>
   );
-}
+};

@@ -16,6 +16,12 @@ const config: Config = {
         '2xl': '1440px',
       },
     },
+    screens: {
+      mobile: { max: '540px' },
+      tablet: { max: '1024px' },
+      laptop: { max: '1250px' },
+      desktop: { max: '1400px' },
+    },
     extend: {
       colors: {
         background: 'hsl(var(--background))',
@@ -32,6 +38,7 @@ const config: Config = {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
         },
+        slateBlue: 'hsl(var(--slate-blue))',
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',
           foreground: 'hsl(var(--secondary-foreground))',
