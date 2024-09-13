@@ -7,6 +7,7 @@ import {
   ApolloClient,
   InMemoryCache,
 } from '@apollo/experimental-nextjs-app-support';
+import { setContext } from '@apollo/client/link/context';
 import { API_URL } from '../constants/urls';
 
 // have a function to create a client for you
@@ -23,11 +24,25 @@ function makeClient() {
     // const { data } = useSuspenseQuery(MY_QUERY, { context: { fetchOptions: { cache: "force-cache" }}});
   });
 
+  const authLink = setContext((_, { headers }) => {
+    const access_token = document.cookie
+      .split('; ')
+      .find((row) => row.startsWith('access_token='))
+      ?.split('=')[1];
+
+    return {
+      headers: {
+        ...headers,
+        authorization: access_token ? `Bearer ${access_token}` : '',
+      },
+    };
+  });
+
   // use the `ApolloClient` from "@apollo/experimental-nextjs-app-support"
   return new ApolloClient({
     // use the `InMemoryCache` from "@apollo/experimental-nextjs-app-support"
     cache: new InMemoryCache(),
-    link: httpLink,
+    link: authLink.concat(httpLink),
   });
 }
 

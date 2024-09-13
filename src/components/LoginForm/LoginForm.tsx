@@ -2,6 +2,7 @@
 import { ChangeEvent, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { gql } from '@/src/gql/__generated__';
+import { useRouter } from 'next/navigation';
 import { Button } from '@/src/components/ui/button';
 import {
   Card,
@@ -13,15 +14,18 @@ import {
 } from '@/src/components/ui/card';
 import { Input } from '@/src/components/ui/input';
 import { Label } from '@/src/components/ui/label';
+import { useToast } from '@/hooks/use-toast';
 
-const LOGIN = gql(
-  'mutation Login($email: String!, $password: String!) {\n  login(email: $email, password: $password) {\n    access_token\n    refresh_token\n  }\n}'
+const SING_IN = gql(
+  'mutation SignIn($email: String!, $password: String!) {\n  login(email: $email, password: $password) {\n    access_token\n    refresh_token\n  }\n}'
 );
 
 export function LoginForm() {
-  const [login, { error, data }] = useMutation(LOGIN);
+  const [signIn] = useMutation(SING_IN);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const router = useRouter();
+  const { toast } = useToast();
 
   const handleOnChangeEmail = (event: ChangeEvent<HTMLInputElement>): void => {
     setEmail(event.target.value);
@@ -33,11 +37,39 @@ export function LoginForm() {
     setPassword(event.target.value);
   };
 
-  const handleLogin = (): void => {
-    login({ variables: { email, password } });
-  };
+  const handleSignIn = async () => {
+    try {
+      const response = await signIn({
+        variables: { email, password },
+      });
 
-  if (error) return <h1>{error.message}</h1>;
+      if (response) {
+        const { access_token, refresh_token } = response.data!.login;
+
+        const expiresAccessToken = new Date();
+        expiresAccessToken.setDate(expiresAccessToken.getDate() + 20);
+
+        const expiresRefreshToken = new Date();
+        expiresRefreshToken.setHours(expiresRefreshToken.getHours() + 10);
+
+        document.cookie = `access_token=${access_token}; expires=${expiresAccessToken.toUTCString()};`;
+        document.cookie = `refresh_token=${refresh_token}; expires=${expiresRefreshToken.toUTCString()}; httpOnly; Secure;`;
+
+        toast({
+          title: 'Success',
+          description: 'Logged in successfully!',
+        });
+
+        router.push('/my-info');
+      }
+    } catch (err) {
+      toast({
+        variant: 'destructive',
+        title: 'Invalid email or password',
+        description: 'Try entering the data again',
+      });
+    }
+  };
 
   return (
     <Card className='w-full max-w-sm'>
@@ -69,7 +101,7 @@ export function LoginForm() {
         </div>
       </CardContent>
       <CardFooter>
-        <Button className='w-full' onClick={handleLogin}>
+        <Button className='w-full' onClick={handleSignIn}>
           Sign in
         </Button>
       </CardFooter>
