@@ -15,21 +15,21 @@ import {
 } from 'lucide-react';
 
 interface UserInfoProps {
-  name: string;
+  userName: string;
   avatarUrl: string;
 }
 
-export const UserInfo: React.FC<UserInfoProps> = ({ name, avatarUrl }) => {
+export const UserInfo: React.FC<UserInfoProps> = ({ userName, avatarUrl }) => {
   return (
     <>
       <div className='flex flex-col items-center'>
-        <div className='absolute z-10'>
+        <div className='absolute z-10 mt-9'>
           <Avatar className='w-36 h-36'>
-            <AvatarImage src={avatarUrl} alt={`Avatar ${name}`} />
+            <AvatarImage src={avatarUrl} alt={`Avatar ${userName}`} />
             <AvatarFallback>IMG</AvatarFallback>
           </Avatar>
         </div>
-        <div className='relative top-32 flex flex-col gap-4 text-slateBlue'>
+        <div className='relative top-40 flex flex-col gap-4 text-slateBlue'>
           <Card className='flex flex-col gap-4 p-6 w-60 rounded-2xl'>
             <div className='flex gap-2 items-center'>
               <Phone className='h-4 w-4' />

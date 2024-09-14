@@ -2,13 +2,9 @@
 
 import { useQuery } from '@apollo/client';
 import { gql } from '@/src/gql/__generated__';
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from '@/src/components/ui/avatar';
 import { Header } from '../layouts/Header/Header';
 import { UserInfo } from '@/src/components/UserInfo/UserInfo';
+import { MyInfo } from '@/src/components/MyInfo/MyInfo';
 
 const GET_PROFILE = gql(
   'query GetProfile {\n  myProfile {\n    id\n    name\n    avatar\n  }\n}'
@@ -30,15 +26,12 @@ export default function MyInfoPage() {
     <>
       <Header />
       <div className='bg-primary h-48'>
-        <div className='max-w-7xl mx-auto pl-6 pr-6'>
-          {/* <Avatar className='w-36 h-36'>
-            <AvatarImage src='https://github.com/shadcn.png' />
-            <AvatarFallback>IMG</AvatarFallback>
-          </Avatar>
-          <h1 className='text-3xl font-semibold'>Alexandra Kuibyshevskaya</h1> */}
-          <div>
-            <UserInfo name='Shime' avatarUrl='https://github.com/shadcn.png' />
-          </div>
+        <div className='container max-w-7xl flex gap-6'>
+          <UserInfo
+            userName='Shime'
+            avatarUrl='https://github.com/shadcn.png'
+          />
+          <MyInfo userName='Alexandra Kuibyshevskaya' />
         </div>
       </div>
     </>
