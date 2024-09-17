@@ -22,7 +22,10 @@ const MyInfobar = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <MyInfobarPrimitive.Root
     ref={ref}
-    className={cn('flex h-10 items-center bg-background gap-3', className)}
+    className={cn(
+      'flex h-12 gap-3 items-center justify-around bg-primary',
+      className
+    )}
     {...props}
   />
 ));
@@ -175,7 +178,11 @@ const MyInfobarLabel = React.forwardRef<
 >(({ className, inset, ...props }, ref) => (
   <MyInfobarPrimitive.Label
     ref={ref}
-    className={cn('p-4 text-sm rounded-t-lg', inset && 'pl-8', className)}
+    className={cn(
+      'p-4 text-sm font-medium rounded-t-2xl',
+      inset && 'pl-8',
+      className
+    )}
     {...props}
   />
 ));

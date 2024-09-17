@@ -5,11 +5,7 @@ import {
 } from '@/src/components/ui/menubar';
 import { Input } from '@/src/components/ui/input';
 import { Bell, CircleHelp, Menu, SearchIcon, Settings } from 'lucide-react';
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from '@/src/components/ui/avatar';
+import AccountMenu from './AccountMenu';
 
 export const Header: React.FC = () => {
   return (
@@ -42,21 +38,20 @@ export const Header: React.FC = () => {
           <div className='relative laptop:hidden'>
             <Input
               type='search'
-              className='w-96 pl-14 desktop:w-60'
+              className='w-96 pl-14 bg-card desktop:w-60'
               placeholder='Search'
             />
             <SearchIcon className='absolute top-3 left-4 h-4 w-4 text-slateBlue' />
           </div>
           <div className='flex items-center gap-6 text-slateBlue'>
-            <SearchIcon className='hidden laptop:inline' />
-            <Settings className='mobile:hidden' />
-            <CircleHelp className='mobile:hidden' />
-            <Bell />
-            <Avatar className='h-9 w-9'>
-              <AvatarImage src='https://github.com/shadcn.png' alt='@shadcn' />
-              <AvatarFallback>IMG</AvatarFallback>
-            </Avatar>
+            <div className='border border-foreground rounded-xl p-2 hidden laptop:inline'>
+              <SearchIcon className='h-4 w-4' />
+            </div>
+            <Settings className='tablet:hidden' />
+            <CircleHelp className='tablet:hidden' />
+            <Bell className='tablet:hidden' />
             <Menu className='hidden tablet:inline' />
+            <AccountMenu />
           </div>
         </div>
       </nav>

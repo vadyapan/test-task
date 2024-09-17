@@ -11,27 +11,35 @@ const GET_PROFILE = gql(
 );
 
 export default function MyInfoPage() {
-  // const { loading, error, data } = useQuery(GET_PROFILE);
+  const { loading, error, data } = useQuery(GET_PROFILE);
 
-  // if (loading)
-  //   return (
-  //     <div className='flex flex-col items-center gap-8 pt-12 pb-24'>
-  //       <h1>Loading...</h1>
-  //     </div>
-  //   );
+  if (loading)
+    return (
+      <div className='flex justify-center items-center h-screen text-4xl font-medium'>
+        <h1>Loading...</h1>
+      </div>
+    );
 
-  // if (error) return <h1>error.message</h1>;
+  if (error)
+    return (
+      <div className='flex gap-2 justify-center items-center h-screen text-4xl font-medium'>
+        <h1>error.message</h1>
+      </div>
+    );
 
   return (
     <>
       <Header />
       <div className='bg-primary h-48'>
-        <div className='container max-w-7xl flex gap-6'>
+        <div className='container max-w-7xl flex gap-6 tablet:p-0'>
           <UserInfo
-            userName='Shime'
-            avatarUrl='https://github.com/shadcn.png'
+            userName={data!.myProfile.name}
+            avatarUrl={data!.myProfile.avatar}
           />
-          <MyInfo userName='Alexandra Kuibyshevskaya' />
+          <MyInfo
+            userName={data!.myProfile.name}
+            avatarUrl={data!.myProfile.avatar}
+          />
         </div>
       </div>
     </>

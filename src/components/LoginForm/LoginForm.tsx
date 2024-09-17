@@ -83,6 +83,7 @@ export const LoginForm: React.FC = () => {
         <div className='grid gap-2'>
           <Label htmlFor='email'>Email</Label>
           <Input
+            className='bg-card'
             id='email'
             type='email'
             placeholder='m@example.com'
@@ -93,6 +94,7 @@ export const LoginForm: React.FC = () => {
         <div className='grid gap-2'>
           <Label htmlFor='password'>Password</Label>
           <Input
+            className='bg-card'
             id='password'
             type='password'
             required
@@ -101,7 +103,10 @@ export const LoginForm: React.FC = () => {
         </div>
       </CardContent>
       <CardFooter>
-        <Button className='w-full' onClick={handleSignIn}>
+        <Button
+          className='w-full bg-primaryGray hover:bg-primaryGray/90'
+          onClick={handleSignIn}
+        >
           Sign in
         </Button>
       </CardFooter>

@@ -22,7 +22,7 @@ interface UserInfoProps {
 export const UserInfo: React.FC<UserInfoProps> = ({ userName, avatarUrl }) => {
   return (
     <>
-      <div className='flex flex-col items-center'>
+      <div className='flex flex-col items-center laptop:hidden'>
         <div className='absolute z-10 mt-9'>
           <Avatar className='w-36 h-36'>
             <AvatarImage src={avatarUrl} alt={`Avatar ${userName}`} />

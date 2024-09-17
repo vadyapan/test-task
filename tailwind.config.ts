@@ -39,6 +39,10 @@ const config: Config = {
           foreground: 'hsl(var(--primary-foreground))',
         },
         slateBlue: 'hsl(var(--slate-blue))',
+        darkBlue: 'hsl(var(--dark-blue))',
+        linkBlue: 'hsl(var(--link-blue))',
+        primaryGray: 'hsl(var(--primary-gray))',
+        secondaryGray: 'hsl(var(--secondary-gray))',
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',
           foreground: 'hsl(var(--secondary-foreground))',
